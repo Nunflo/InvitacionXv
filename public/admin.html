@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de Control - XV Paola</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .admin-container { padding: 20px; max-width: 800px; margin: auto; font-family: sans-serif; }
+        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        input { padding: 10px; width: 70%; border-radius: 5px; border: 1px solid #ccc; }
+        .btn-copy { padding: 10px 20px; background: #eec1c1; border: none; border-radius: 5px; cursor: pointer; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { text-align: left; padding: 12px; border-bottom: 1px solid #eee; }
+        .status-confirmado { color: green; font-weight: bold; }
+    </style>
+</head>
+<body style="background: #fff5f6;">
+    <div class="admin-container">
+        <h1 class="script-font">Panel de Nancy Paola</h1>
+        
+        <div class="card">
+            <h3>Generador de Enlaces Personalizados</h3>
+            <p>Escribe el nombre del invitado o familia:</p>
+            <input type="text" id="nombreInvitado" placeholder="Ej: Familia Perez">
+            <button class="btn-copy" onclick="generarLink()">Copiar Link</button>
+            <p id="linkGenerado" style="font-size: 0.8rem; color: #666; margin-top: 10px;"></p>
+        </div>
+
+        <div class="card">
+            <h3>Lista de Confirmaciones</h3>
+            <table id="tablaInvitados">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Estado</th>
+                        <th>Fecha</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function generarLink() {
+            const nombre = document.getElementById('nombreInvitado').value.trim();
+            if(!nombre) return alert("Escribe un nombre");
+            
+            // Reemplaza espacios por guiones bajos para la URL
+            const nombreURL = nombre.replace(/\s+/g, '_');
+            const base = window.location.origin; // Detecta si es localhost o vercel automáticamente
+            const linkFinal = `${base}/?n=${nombreURL}`;
+            
+            navigator.clipboard.writeText(linkFinal);
+            document.getElementById('linkGenerado').innerText = "Copiado: " + linkFinal;
+            alert("¡Link copiado para " + nombre + "!");
+        }
+
+        // Función para cargar la lista desde tu servidor
+        async function cargarLista() {
+            try {
+                const res = await fetch('/api/lista-invitados');
+                const datos = await res.json();
+                const tabla = document.querySelector('#tablaInvitados tbody');
+                tabla.innerHTML = datos.map(inv => `
+                    <tr>
+                        <td>${inv.nombre}</td>
+                        <td class="status-${inv.asistencia.toLowerCase()}">${inv.asistencia}</td>
+                        <td>${new Date(inv.fechaRegistro).toLocaleDateString()}</td>
+                    </tr>
+                `).join('');
+            } catch (e) { console.error("Error cargando lista"); }
+        }
+        cargarLista();
+    </script>
+</body>
+</html>

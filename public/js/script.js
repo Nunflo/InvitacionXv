@@ -97,54 +97,29 @@ const enviarFormulario = async (nombre, asistencia) => {
     alert(resultado.mensaje);
 };
 
-// --- MANEJO DEL FORMULARIO DE ASISTENCIA ---
+// Función para obtener el nombre de la URL
+function obtenerNombreURL() {
+    const params = new URLSearchParams(window.location.search);
+    let nombreURL = params.get('n'); // Busca el parámetro "n"
+    if (nombreURL) {
+        // Reemplaza guiones bajos por espacios (ej: Juan_Perez -> Juan Perez)
+        return nombreURL.replace(/_/g, ' ');
+    }
+    return null;
+}
 
-// Esperamos a que el DOM esté listo
+// Cuando cargue la página, personalizar el saludo
 document.addEventListener('DOMContentLoaded', () => {
-    const formulario = document.querySelector('form'); // Selecciona tu etiqueta <form>
-    
-    if (formulario) {
-        formulario.addEventListener('submit', async (e) => {
-            e.preventDefault(); // Evita que la página se recargue
+    const nombreInvitado = obtenerNombreURL();
+    const saludoH3 = document.getElementById('saludo-personalizado');
+    const inputNombre = document.getElementById('nombre');
 
-            // 1. Referencias a los elementos (Asegúrate que los IDs coincidan con tu HTML)
-            const btnEnviar = formulario.querySelector('button[type="submit"]');
-            const inputNombre = document.getElementById('nombre'); // ID del input de nombre
-            const selectAsistencia = document.getElementById('asistencia'); // ID del select
-
-            // 2. Extraer valores
-            const datos = {
-                nombre: inputNombre.value,
-                asistencia: selectAsistencia.value
-            };
-
-            // 3. Toque profesional: Desactivar botón mientras envía
-            btnEnviar.disabled = true;
-            btnEnviar.innerText = "Enviando...";
-
-            try {
-                const respuesta = await fetch('/api/invitados', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(datos)
-                });
-                
-                const resultado = await respuesta.json();
-
-                if (respuesta.ok) {
-                    alert("¡Gracias! Tu respuesta ha sido registrada para los XV de Paola.");
-                    formulario.reset(); // Limpia el formulario
-                } else {
-                    alert("Error: " + resultado.error);
-                }
-            } catch (error) {
-                console.error("Error al enviar:", error);
-                alert("No se pudo conectar con el servidor. Revisa tu conexión.");
-            } finally {
-                // 4. Reactivar botón
-                btnEnviar.disabled = false;
-                btnEnviar.innerText = "Confirmar Asistencia";
-            }
-        });
+    if (nombreInvitado) {
+        if (saludoH3) saludoH3.innerText = `¡Hola ${nombreInvitado}!`;
+        if (inputNombre) {
+            inputNombre.value = nombreInvitado;
+            inputNombre.readOnly = true; // El invitado no puede cambiar su nombre
+        }
     }
 });
+
