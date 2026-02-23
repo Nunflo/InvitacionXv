@@ -171,7 +171,7 @@
             <div class="reveal">
                 <h2 class="playfair-title">Confirmación</h2>
                 <p>Favor de confirmar antes del 1 de Febrero 2026</p>
-                <a href="https://wa.me/524492587468?text=Hola,%20confirmo%20mi%20asistencia%20a%20los%20XV%20de%20Nancy%20Paola" target="_blank" class="btn-action btn-whatsapp">📱 CONFIRMAR ASISTENCIA</a>
+                <a href="http://127.0.0.1:5500/confirmacion.html?id=FLORESNU%C3%91EZ" target="_blank" class="btn-action btn-whatsapp">📱 CONFIRMAR ASISTENCIA</a>
             </div>
         </section>
 
@@ -180,6 +180,17 @@
 
     <script src="https://unpkg.com/scrollreveal"></script>
     <script src="js/script.js"></script>
+    <script>
+  // Este código toma el ID de la URL (ej: ?id=FLORESNUÑEZ) 
+  // y lo pasa automáticamente al botón de confirmación
+  const urlParams = new URLSearchParams(window.location.search);
+  const guestId = urlParams.get('id');
+  const btnConfirmar = document.getElementById('btn-confirmar');
+  
+  if (guestId && btnConfirmar) {
+    btnConfirmar.href = `confirmacion.html?id=${guestId}`;
+  }
+</script>
 </body>
 
 </html>
