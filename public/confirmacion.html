@@ -113,11 +113,10 @@
         dataParaEnviar.append('id', datosGlobal.id);
         dataParaEnviar.append('confirmacion', respuestas.join(" | "));
 
-        fetch(scriptURL, {
-            method: 'POST',
-            mode: 'no-cors', // Importante para Google Apps Script
-            body: dataParaEnviar
-        })
+        fetch(scriptURL + "?id=" + id.toUpperCase(), {
+    method: 'GET',
+    mode: 'cors' // Añadimos esto para mayor compatibilidad
+})
         .then(() => {
             loaderEnvio.style.display = 'none';
             btn.style.display = 'none';
