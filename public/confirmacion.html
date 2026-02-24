@@ -39,7 +39,7 @@
 </div>
 
 <script>
-    const scriptURL = "https://script.google.com/macros/s/AKfycbyCINPFac3v7XRx7FyjagIDQcsUc_s7Zf_XLMKAewd3tmdb49Yzg23m4J4GKfUibQoS/exec";
+    const scriptURL = "https://script.google.com/macros/s/AKfycby4EumBv7vJgkZmgkdnB9I8NLkaHhzQzwAfcbLjCHBeMcfKZnBbfPoy_EwseprN1Kak/exec";
     let datosGlobal = null;
 
     window.onload = function() {
@@ -54,14 +54,25 @@
         // Busca la línea que empieza con fetch y asegúrate que se vea así:
 fetch(scriptURL + "?id=" + id.toUpperCase(), {
     method: 'GET',
-    redirect: 'follow' // Es vital que diga 'follow' para Google Scripts
+    mode: 'cors', // Forzamos el modo cors
+    headers: {
+        'Content-Type': 'text/plain;charset=utf-8',
+    }
 })
-.then(response => response.json())
+.then(response => {
+    if (!response.ok) throw new Error('Error en la red');
+    return response.json();
+})
 .then(data => {
-    // ... resto de tu código para mostrar los nombres
+    // Aquí va tu código para mostrar los nombres de la familia
+    console.log("Datos recibidos:", data);
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('contenido').style.display = 'block';
+    // ... (rellena los campos con data.familia y data.integrantes)
 })
 .catch(error => {
-    console.error('Error:', error);
+    console.error('Error detallado:', error);
+    document.getElementById('loading').style.display = 'none';
     document.getElementById('error').style.display = 'block';
 });
             
