@@ -146,3 +146,16 @@ section { padding: 70px 25px; text-align: center; display: flex; flex-direction:
 .btn-liverpool { background: #ad1457; color: white; padding: 12px; font-weight: bold; text-align: center; }
 .main-footer { padding: 40px; opacity: 0.4; font-size: 0.65rem; text-align: center; letter-spacing: 2px; }
 
+.main-footer {
+        text-align: center;
+        padding: 20px;
+        font-size: 0.9rem;
+        color: #888; /* Un color suave para que no distraiga del diseño principal */
+        margin-top: 40px;
+        border-top: 1px solid #eee;
+    }
+
+    .main-footer a:hover {
+        color: #c5a059; /* Cambia a color oro cuando pasas el mouse */
+        text-decoration: underline;
+    }
