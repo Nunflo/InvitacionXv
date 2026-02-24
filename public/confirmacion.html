@@ -39,12 +39,13 @@
 </div>
 
 <script>
-    // 1. REEMPLAZA CON TU NUEVO LINK DE GOOGLE
-    const scriptURL = "https://script.google.com/macros/s/AKfycbzW0Rth6I1uG6Ny1q6sXgyzxAEIIxunOF0Noas_qcP-guPNSFgJOEtCuEQohtgES1zM/exec";
+    // 1. REEMPLAZA ESTE LINK CON TU NUEVA IMPLEMENTACIÓN
+    const scriptURL = "https://script.google.com/macros/s/AKfycbwRR5uFOXWAitxCOdEwYrUPB0ZHoDvk1HATS6OCW0pbhIIwXzYLH4VEhqUnQxcEj45V/exec";
     let datosGlobal = null;
 
-    // Función que recibirá los datos de Google (JSONP)
-    function procesarRespuesta(data) {
+    // Esta función DEBE llamarse igual que el parámetro callback en la URL
+    window.recibirDatos = function(data) {
+        console.log("Datos recibidos:", data);
         if (data.error) {
             showError("Invitación no encontrada.");
         } else if (data.estatus === "ok") {
@@ -55,16 +56,17 @@
             datosGlobal = data;
             showInvite(data);
         }
-    }
+    };
 
     window.onload = function() {
         const urlParams = new URLSearchParams(window.location.search);
         const id = urlParams.get('id');
-        if (!id) return showError("ID faltante");
+        if (!id) return showError("Falta el ID en la invitación.");
 
-        // Llamada especial para saltar el CORS
         const script = document.createElement('script');
-        script.src = `${scriptURL}?id=${encodeURIComponent(id.toUpperCase())}&callback=procesarRespuesta`;
+        script.src = `${scriptURL}?id=${encodeURIComponent(id.toUpperCase())}&callback=recibirDatos`;
+        // Manejo de errores de carga del script
+        script.onerror = () => showError("Error de red al conectar con Google.");
         document.body.appendChild(script);
     };
 
@@ -103,7 +105,7 @@
 
         const id = new URLSearchParams(window.location.search).get('id');
         const script = document.createElement('script');
-        script.src = `${scriptURL}?id=${encodeURIComponent(id.toUpperCase())}&confirmacion=${encodeURIComponent(respuestas.join(" | "))}&callback=procesarRespuesta`;
+        script.src = `${scriptURL}?id=${encodeURIComponent(id.toUpperCase())}&confirmacion=${encodeURIComponent(respuestas.join(" | "))}&callback=recibirDatos`;
         document.body.appendChild(script);
     }
 </script>
