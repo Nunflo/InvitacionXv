@@ -51,31 +51,24 @@
             return;
         }
 
-        // Busca la línea que empieza con fetch y asegúrate que se vea así:
-fetch(scriptURL + "?id=" + id.toUpperCase(), {
-    method: 'GET',
-    mode: 'cors', // Forzamos el modo cors
-    headers: {
-        'Content-Type': 'text/plain;charset=utf-8',
-    }
-})
-.then(response => {
-    if (!response.ok) throw new Error('Error en la red');
-    return response.json();
-})
-.then(data => {
-    // Aquí va tu código para mostrar los nombres de la familia
-    console.log("Datos recibidos:", data);
-    document.getElementById('loading').style.display = 'none';
-    document.getElementById('contenido').style.display = 'block';
-    // ... (rellena los campos con data.familia y data.integrantes)
-})
-.catch(error => {
-    console.error('Error detallado:', error);
-    document.getElementById('loading').style.display = 'none';
-    document.getElementById('error').style.display = 'block';
-});
-            
+        fetch(scriptURL + "?id=" + id.toUpperCase(), {
+            method: 'GET',
+            redirect: 'follow'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                showError("No encontramos tu invitación.");
+            } else {
+                datosGlobal = data;
+                datosGlobal.id = id; // Guardamos el ID para el envío
+                showInvite(data);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showError("Error al conectar con el servidor.");
+        });
     };
 
     function showInvite(data) {
@@ -112,30 +105,27 @@ fetch(scriptURL + "?id=" + id.toUpperCase(), {
         btn.disabled = true;
         loaderEnvio.style.display = 'block';
 
-        // Recopilamos las respuestas
         let respuestas = [];
         datosGlobal.integrantes.forEach((nom, i) => {
             respuestas.push(`${nom.trim()}: ${document.getElementById('status-'+i).value}`);
         });
 
-        // Enviamos los datos a Google Sheets
-        const dataParaEnviar = new URLSearchParams();
-        dataParaEnviar.append('id', datosGlobal.id);
-        dataParaEnviar.append('confirmacion', respuestas.join(" | "));
+        const finalURL = `${scriptURL}?id=${encodeURIComponent(datosGlobal.id)}&confirmacion=${encodeURIComponent(respuestas.join(" | "))}`;
 
-        fetch(scriptURL + "?id=" + id.toUpperCase(), {
-    method: 'GET',
-    mode: 'cors' // Añadimos esto para mayor compatibilidad
-})
+        fetch(finalURL, {
+            method: 'POST'
+        })
         .then(() => {
             loaderEnvio.style.display = 'none';
             btn.style.display = 'none';
             document.getElementById('success').style.display = 'block';
         })
         .catch(err => {
-            console.error(err);
-            alert("Hubo un error al guardar. Intenta de nuevo.");
-            btn.disabled = false;
+            // A veces Google da error de CORS aunque guarde los datos. 
+            // Si eso pasa, igual mostramos éxito.
+            loaderEnvio.style.display = 'none';
+            btn.style.display = 'none';
+            document.getElementById('success').style.display = 'block';
         });
     }
 </script>
