@@ -33,40 +33,39 @@
 
     <div id="error" style="display:none;">
         <h2>¡Ups!</h2>
-        <p id="mensajeError">Error al conectar con el servidor.</p>
-        <small style="color: #ccc;">Verifica tu conexión o el ID.</small>
+        <p id="mensajeError">No pudimos conectar con la invitación.</p>
+        <small style="color: #ccc;">Verifica el ID o intenta de nuevo.</small>
     </div>
 </div>
 
 <script>
-    // PEGA AQUÍ TU NUEVO LINK DE GOOGLE
-    const scriptURL = "https://script.google.com/macros/s/AKfycbwJSNsxj1POIjg5dHbTyle4yPW4o9ARzrsoMwWOBEjVECJMhhsWzXDixOcIbD2dRBXh/exec";
+    // 1. REEMPLAZA CON TU NUEVO LINK DE GOOGLE
+    const scriptURL = "https://script.google.com/macros/s/AKfycbzW0Rth6I1uG6Ny1q6sXgyzxAEIIxunOF0Noas_qcP-guPNSFgJOEtCuEQohtgES1zM/exec";
     let datosGlobal = null;
+
+    // Función que recibirá los datos de Google (JSONP)
+    function procesarRespuesta(data) {
+        if (data.error) {
+            showError("Invitación no encontrada.");
+        } else if (data.estatus === "ok") {
+            document.getElementById('enviando').style.display = 'none';
+            document.getElementById('btnEnviar').style.display = 'none';
+            document.getElementById('success').style.display = 'block';
+        } else {
+            datosGlobal = data;
+            showInvite(data);
+        }
+    }
 
     window.onload = function() {
         const urlParams = new URLSearchParams(window.location.search);
         const id = urlParams.get('id');
+        if (!id) return showError("ID faltante");
 
-        if (!id) {
-            showError("No se proporcionó un ID.");
-            return;
-        }
-
-        fetch(`${scriptURL}?id=${encodeURIComponent(id.toUpperCase())}`)
-        .then(res => res.json())
-        .then(data => {
-            if (data.error) {
-                showError("Invitación no encontrada.");
-            } else {
-                datosGlobal = data;
-                datosGlobal.id = id.toUpperCase();
-                showInvite(data);
-            }
-        })
-        .catch(err => {
-            console.error("Error CORS o Red:", err);
-            showError("Error de conexión. Prueba refrescando la página.");
-        });
+        // Llamada especial para saltar el CORS
+        const script = document.createElement('script');
+        script.src = `${scriptURL}?id=${encodeURIComponent(id.toUpperCase())}&callback=procesarRespuesta`;
+        document.body.appendChild(script);
     };
 
     function showInvite(data) {
@@ -94,24 +93,18 @@
     }
 
     function enviarConfirmacion() {
-        const btn = document.getElementById('btnEnviar');
-        const loaderEnvio = document.getElementById('enviando');
-        btn.disabled = true;
-        loaderEnvio.style.display = 'block';
+        document.getElementById('btnEnviar').disabled = true;
+        document.getElementById('enviando').style.display = 'block';
 
         let respuestas = [];
         datosGlobal.integrantes.forEach((nom, i) => {
             respuestas.push(`${nom.trim()}: ${document.getElementById('status-'+i).value}`);
         });
 
-        const finalURL = `${scriptURL}?id=${encodeURIComponent(datosGlobal.id)}&confirmacion=${encodeURIComponent(respuestas.join(" | "))}`;
-
-        fetch(finalURL, { method: 'GET', mode: 'no-cors' })
-        .then(() => {
-            loaderEnvio.style.display = 'none';
-            btn.style.display = 'none';
-            document.getElementById('success').style.display = 'block';
-        });
+        const id = new URLSearchParams(window.location.search).get('id');
+        const script = document.createElement('script');
+        script.src = `${scriptURL}?id=${encodeURIComponent(id.toUpperCase())}&confirmacion=${encodeURIComponent(respuestas.join(" | "))}&callback=procesarRespuesta`;
+        document.body.appendChild(script);
     }
 </script>
 </body>
