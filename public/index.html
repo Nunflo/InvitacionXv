@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XV Nancy Paola</title>
-    
     <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -19,207 +17,42 @@
     <div id="pantalla-sobre">
         <div class="sobre-visual">
             <p class="sobre-label">MIS XV AÑOS</p>
-            <h2 class="script-font" style="font-size: 3rem; z-index: 2;">Nancy Paola</h2>
+            <h2 class="script-font" style="font-size: 3rem;">Nancy Paola</h2>
             <button class="boton-abrir" onclick="abrirInvitacion()">Abrir</button>
         </div>
     </div>
 
     <div id="contenido">
-        <header class="hero">
-            <div class="hero-bg" id="parallaxBg"></div>
-            <div class="hero-overlay"></div>
-            <div id="contenedor-petalos"></div>
+        <section style="text-align: center; padding: 40px 20px;">
+            <h2 class="playfair-title">Mesa de Regalos</h2>
+            <div class="card-regalo">
+                <img src="https://www.tauro.mx/wp-content/uploads/2017/01/liverpool-logo.jpg" alt="Liverpool" style="width: 140px; margin-bottom: 20px;">
+                <a href="https://mesaderegalos.liverpool.com.mx/" target="_blank" class="btn-regalo-primario">VER MESA EN LIVERPOOL</a>
+                <p style="color: var(--oro); font-weight: bold; margin-bottom: 15px;">Haz click para dejar tu regalo</p>
+                <a href="https://mesaderegalos.liverpool.com.mx/" target="_blank" class="btn-regalo-secundario">Dejar Regalo Online</a>
+            </div>
+        </section>
+
+        <section class="sec-confirmacion" style="text-align: center; padding: 60px 20px;">
             <div class="reveal">
-                <p class="hero-fecha">AGOSTO 15, 2026</p>
-                <h1 class="script-font">Nancy Paola</h1>
-                
-                <div class="contador-grid">
-                    <div class="contador-item"><span class="count-num" id="dias">00</span><span class="count-lab">Días</span></div>
-                    <div class="contador-item"><span class="count-num" id="horas">00</span><span class="count-lab">Hrs</span></div>
-                    <div class="contador-item"><span class="count-num" id="minutos">00</span><span class="count-lab">Min</span></div>
-                    <div class="contador-item"><span class="count-num" id="segundos">00</span><span class="count-lab">Seg</span></div>
-                </div>
-            </div>
-        </header>
-
-        <section class="sec-mensaje">
-            <div class="reveal">
-                <div class="mensaje-emotivo">
-                    ""Hoy levanto mis ojos al cielo para agradecer a Dios el regalo de la vida, en el camino a dos ángeles: mis padres, por ser el reflejo de Su amor y por guiar cada uno de mis pasos con paciencia y fe, por darme raíces para crecer y alas para volar. Hoy, al celebrar mis quince años, quiero dar gracias por el pasado, bendecir mi presente y brindar por un futuro lleno de luz. Su presencia es el mejor regalo que Dios me puede dar en esta noche mágica.""
-                </div>
-                <div class="divisor"></div>
+                <h2 class="playfair-title">Confirmación</h2>
+                <p style="color: #888; font-style: italic; margin-bottom: 30px;">Favor de confirmar antes del 1 de junio 2026</p>
+                <a href="confirmacion.html" id="btn-confirmar" class="btn-elegante">
+                    📱 CONFIRMAR ASISTENCIA
+                </a>
             </div>
         </section>
-
-        <section>
-            <div class="reveal">
-                <h3 class="playfair-title" style="font-size: 0.8rem;">Guarda la fecha</h3>
-                <div class="fecha-destacada">15 DE AGOSTO 2026</div>
-                <p class="hora-texto">18:00 HRS</p>
-                <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=XV+Años+Nancy+Paola&dates=20260815T180000/20260816T010000&location=Aguascalientes" target="_blank" class="btn-action btn-cal">📅 AGREGAR AL CALENDARIO</a>
-            </div>
-        </section>
-
-        <section class="sec-familia">
-            <div class="reveal">
-                <h3 class="playfair-title">Con la bendición de</h3>
-                <div class="familia-bloque">
-                    <p class="parentesco">MIS PADRES</p>
-                    <p class="nombres">Jonathan Flores & Guadalupe Michaus</p>
-                </div>
-                <div class="familia-bloque">
-                    <p class="parentesco">MIS PADRINOS</p>
-                    <p class="nombres"></p>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <h2 class="playfair-title">Momentos</h2>
-            <div class="carousel-container reveal">
-                <div class="carousel-slide" id="slider">
-                    <img src="img/11.jpeg" alt="Foto 11">
-                    <img src="img/12.jpeg" alt="Foto 12">
-                    <img src="img/13.jpeg" alt="Foto 13">
-                    <img src="img/1.jpeg" alt="Foto 1">
-                    <img src="img/2.jpeg"alt="Foto 2">
-                    <img src="img/3.jpeg" alt="Foto 3">
-                    <img src="img/4.jpeg" alt="Foto 4">
-                    <img src="img/5.jpeg" alt="Foto 5">
-                    <img src="img/6.jpeg" alt="Foto 6">
-                    <img src="img/7.jpeg" alt="Foto 7">
-                    <img src="img/8.jpeg" alt="Foto 8">
-                    <img src="img/9.jpeg" alt="Foto 9">
-                    <img src="img/14.jpeg" alt="Foto 14">
-                    <img src="img/15.jpeg" alt="Foto 15">
-                    <img src="img/16.jpeg" alt="Foto 16">
-                    <img src="img/17.jpeg" alt="Foto 17">
-                    <img src="img/18.jpeg" alt="Foto 18">
-                    <img src="img/19.jpeg" alt="Foto 19">
-                    <img src="img/20.jpeg" alt="Foto 20">
-                    <img src="img/21.jpeg" alt="Foto 21">
-                    <img src="img/22.jpeg" alt="Foto 22">
-                    <img src="img/23.jpeg" alt="Foto 23">
-                    <img src="img/24.jpeg" alt="Foto 24">
-                    <img src="img/25.jpeg" alt="Foto 25">
-                    <img src="img/26.jpeg" alt="Foto 26">
-                    <img src="img/27.jpeg" alt="Foto 27">
-                    <img src="img/28.jpeg" alt="Foto 28">
-                    <img src="img/29.jpeg" alt="Foto 29">
-                    <img src="img/30.jpeg" alt="Foto 30">
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <h2 class="script-font">Itinerario</h2>
-            <div class="timeline reveal">
-                <div class="timeline-item">⛪ <b>18:00 HRS</b> - Ceremonia Religiosa (Templo del Señor del Encino)</div>
-                <div class="timeline-item">🥳 <b>20:00 HRS</b> - Recepción (Salón Terraza Artes)</div>
-                <div class="timeline-item">🍽️ <b>20:30 HRS</b> - Cena </div>
-                <div class="timeline-item">✨ <b>21:30 HRS</b> - Vals y Mañanitas</div>
-                <div class="timeline-item">💃 <b>22:30 HRS</b> - Baile y Celebración</div>
-                <div class="timeline-item">🌙 <b>01:00 HRS</b> - Fin de la Celebración</div>
-            
-            </div>
-        </section>
-
-        <section>
-            <div class="reveal">
-                <h2 class="playfair-title">Cómo llegar</h2>
-                
-                <div style="margin-bottom: 45px;">
-                    <p style="font-weight: 600; color: var(--rosa-fuerte);">CEREMONIA</p>
-                    <img src="img/templo.webp" alt="Templo" style="width: 100%; max-width: 300px; height: 180px; object-fit: cover; border-radius: 15px; margin: 15px 0; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-                    <p style="font-size: 0.9rem; margin-bottom: 10px;">Templo del Señor del Encino</p>
-                    <a href="https://maps.app.goo.gl/YbXgWmnEyBHHPt6b9" target="_blank" class="btn-action btn-rosa">📍 VER MAPA</a>
-                </div>
-
-                <div>
-                    <p style="font-weight: 600; color: var(--rosa-fuerte);">RECEPCIÓN</p>
-                    <img src="img/salon.webp" alt="Salón" style="width: 100%; max-width: 300px; height: 180px; object-fit: cover; border-radius: 15px; margin: 15px 0; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-                    <p style="font-size: 0.9rem; margin-bottom: 10px;">Salón Terraza Artes</p>
-                    <a href="https://maps.app.goo.gl/g6MMm2TyD1zybCyG7" target="_blank" class="btn-action btn-rosa">📍 VER MAPA</a>
-                </div>
-            </div>
-        </section>
-
-        <section style="background: #fffafb;">
-            <h2 class="playfair-title">Código de Vestimenta</h2>
-            <p style="letter-spacing: 2px; font-weight: 600;">👗 ETIQUETA 👔</p>
-            
-            <div class="reveal" style="margin-top: 15px;">
-                <a href="https://www.protocolo.org/extfiles/i-4584-cG.2511.1.jpg" target="_blank" class="btn-action btn-rosa">✨ VER EJEMPLO</a>
-            </div>
-
-            <div class="regla-rosa reveal">
-                <p>⚠️ AVISO IMPORTANTE:</p>
-                <p style="font-size: 0.85rem; margin-top: 8px; font-weight: 400;">El color <b>ROSA</b> está reservado exclusivamente para la quinceañera. Gracias por su cariño.</p>
-            </div>
-        </section>
-
-        <section>
-            <div style="text-align: center; margin-top: 30px;">
-    <h3 style="color: #800020; letter-spacing: 2px;">MESA DE REGALOS</h3>
-    <div style="background: white; padding: 20px; border-radius: 15px; display: inline-block; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-        <img src="https://www.tauro.mx/wp-content/uploads/2017/01/liverpool-logo.jpg" alt="Liverpool" style="width: 150px; margin-bottom: 10px;">
-
-        <a href="https://mesaderegalos.liverpool.com.mx/" target="_blank" class="btn-regalo">
-            VER MESA EN LIVERPOOL
-        </a>
-
-        <p style="color: #b38d45; font-weight: bold; margin-top: 10px; font-size: 0.9rem;">
-            Haz click para dejar tu regalo
-        </p>
-
-        <a href="https://mesaderegalos.liverpool.com.mx/" target="_blank" class="btn-online">
-            Dejar Regalo Online
-        </a>
-    </div>
-</div>
-        </section>
-
-        <section class="sec-confirmacion">
-    <div class="reveal">
-        <h2 class="playfair-title">Confirmación</h2>
-        <p style="color: #666; font-style: italic; margin-bottom: 25px;">Favor de confirmar antes del 1 de junio 2026</p>
-        
-        <a href="confirmacion.html" id="btn-confirmar" class="btn-elegante">
-            <span>📱</span> CONFIRMAR ASISTENCIA
-        </a>
-    </div>
-</section>
 
         <footer class="main-footer">
-    SEROLF Contrataciones: 
-    <a href="https://wa.me/524492587468" target="_blank" class="whatsapp-link">
-        <span style="vertical-align: middle;">+52 449 258 7468</span>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA" style="width: 18px; vertical-align: middle; margin-left: 5px;">
-    </a>
-</footer>
-
+            SEROLF Contrataciones: 
+            <a href="https://wa.me/524492587468" target="_blank" class="whatsapp-link">
+                +52 449 258 7468
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA" style="width: 18px;">
+            </a>
+        </footer>
     </div>
 
     <script src="https://unpkg.com/scrollreveal"></script>
     <script src="js/script.js"></script>
-    <script>
-  // Este código toma el ID de la URL (ej: ?id=FLORESNUÑEZ) 
-  // y lo pasa automáticamente al botón de confirmación
-  const urlParams = new URLSearchParams(window.location.search);
-  const guestId = urlParams.get('id');
-  const btnConfirmar = document.getElementById('btn-confirmar');
-  
-  if (guestId && btnConfirmar) {
-    btnConfirmar.href = `confirmacion.html?id=${guestId}`;
-  }
-</script>
 </body>
-
 </html>
-
-
-
-
-
-
-
