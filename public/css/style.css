@@ -159,3 +159,57 @@ section { padding: 70px 25px; text-align: center; display: flex; flex-direction:
         color: #c5a059; /* Cambia a color oro cuando pasas el mouse */
         text-decoration: underline;
     }
+    .btn-regalo {
+        display: block;
+        background: #800020; /* Vino tinto */
+        color: white;
+        padding: 12px 25px;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+    .btn-regalo:hover {
+        background: #a30029; /* Un rojo un poco más vivo al pasar el mouse */
+        transform: scale(1.02);
+    }
+
+    /* Estilos para el segundo botón (Dejar Regalo Online) */
+    .btn-online {
+        display: inline-block;
+        margin-top: 10px;
+        background: white;
+        color: #b38d45;
+        border: 1px solid #b38d45;
+        padding: 8px 20px;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 0.9rem;
+        transition: 0.3s;
+    }
+    .btn-online:hover {
+        background: #fdf8ef;
+        color: #800020;
+        border-color: #800020;
+    }
+
+    /* Estilos para el Footer y WhatsApp */
+    .main-footer {
+        text-align: center;
+        padding: 40px 20px;
+        font-size: 0.85rem;
+        color: #666;
+        background: transparent;
+    }
+    .whatsapp-link {
+        color: #25D366; /* Color verde oficial de WhatsApp */
+        text-decoration: none;
+        font-weight: bold;
+        transition: 0.3s;
+        border-bottom: 1px solid transparent;
+    }
+    .whatsapp-link:hover {
+        color: #128C7E; /* Verde más oscuro al pasar el mouse */
+        border-bottom: 1px solid #128C7E;
+    }
