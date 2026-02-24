@@ -213,3 +213,61 @@ section { padding: 70px 25px; text-align: center; display: flex; flex-direction:
         color: #128C7E; /* Verde más oscuro al pasar el mouse */
         border-bottom: 1px solid #128C7E;
     }
+    .sec-confirmacion {
+    padding: 60px 20px;
+    text-align: center;
+    background-color: transparent; /* Mantiene el fondo rosa suave que ya tienes */
+}
+
+.playfair-title {
+    color: #800020; /* Vino Tinto Elegante */
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+
+.sec-confirmacion p {
+    color: #666;
+    font-style: italic;
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+}
+
+/* El Botón Elegante */
+#btn-confirmar {
+    display: inline-block;
+    padding: 15px 40px;
+    background-color: transparent;
+    color: #b38d45; /* Oro Champán */
+    border: 1px solid #b38d45;
+    text-decoration: none;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    font-weight: bold;
+    border-radius: 0; /* Bordes rectos son más formales y elegantes */
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Efecto Hover */
+#btn-confirmar:hover {
+    color: #ffffff;
+    background-color: #800020; /* Cambia a Vino al pasar el mouse */
+    border-color: #800020;
+    box-shadow: 0 5px 15px rgba(128, 0, 32, 0.2);
+    transform: translateY(-3px); /* Pequeño levante */
+}
+
+/* Estilo para el Footer */
+.main-footer {
+    text-align: center;
+    padding: 30px;
+    font-size: 0.8rem;
+    color: #999;
+    letter-spacing: 1px;
+    border-top: 1px solid rgba(179, 141, 69, 0.2);
+    margin-top: 50px;
+}

@@ -180,20 +180,38 @@
         </section>
 
         <section class="sec-confirmacion">
-            <div class="reveal">
-                <h2 class="playfair-title">Confirmación</h2>
-                <p>Favor de confirmar antes del 1 de junio 2026</p>
-                <a href="confirmacion.html" id="btn-confirmar" class="btn">📱 CONFIRMAR ASISTENCIA</a>
-            </div>
-        </section>
+    <div class="reveal">
+        <h2 class="playfair-title">Confirmación</h2>
+        <p>Favor de confirmar antes del 1 de junio 2026</p>
+        
+        <a href="#" id="btn-confirmar" class="btn" onclick="redirigirConfirmacion()">
+            CONFIRMAR ASISTENCIA
+        </a>
+    </div>
+</section>
 
-        <footer class="main-footer">
+        footer class="main-footer">
     SEROLF Contrataciones: 
-    <a href="https://wa.me/524492587468" target="_blank" class="whatsapp-link">
-        <span style="vertical-align: middle;">+52 449 258 7468</span>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA" style="width: 18px; vertical-align: middle; margin-left: 5px;">
+    <a href="https://wa.me/524492587468" target="_blank" style="color: #25D366; text-decoration: none; font-weight: bold;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA" style="width: 14px; margin-right: 5px; vertical-align: middle;">
+        +52 449 258 7468
     </a>
 </footer>
+
+<script>
+    function redirigirConfirmacion() {
+        // Obtenemos el ID de la URL actual (ej: ?id=FLORESNUNEZ)
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id');
+        
+        // Si hay ID, lo pasamos a la página de confirmación
+        if (id) {
+            window.location.href = `confirmacion.html?id=${id}`;
+        } else {
+            window.location.href = `confirmacion.html`;
+        }
+    }
+</script>
 
     </div>
 
