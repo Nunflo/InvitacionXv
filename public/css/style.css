@@ -271,3 +271,47 @@ section { padding: 70px 25px; text-align: center; display: flex; flex-direction:
     border-top: 1px solid rgba(179, 141, 69, 0.2);
     margin-top: 50px;
 }
+
+/* Contenedor de la sección */
+.sec-confirmacion {
+    padding: 60px 20px;
+    text-align: center;
+    background-color: #fffafb; /* Un rosa casi blanco muy sutil */
+}
+
+/* El Botón de Confirmación */
+.btn-elegante {
+    display: inline-block;
+    padding: 16px 45px;
+    background-color: transparent;
+    color: #b38d45 !important; /* Oro Champán */
+    border: 2px solid #b38d45;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    border-radius: 4px; /* Bordes ligeramente suavizados, no redondos */
+    box-shadow: 0 0 0 rgba(179, 141, 69, 0);
+}
+
+/* EFECTO HOVER (Al pasar el mouse) */
+.btn-elegante:hover {
+    background-color: #800020; /* Cambia a Vino */
+    color: #ffffff !important; /* Texto a blanco para lectura clara */
+    border-color: #800020;
+    transform: translateY(-4px); /* Se eleva sutilmente */
+    box-shadow: 0 8px 20px rgba(128, 0, 32, 0.25); /* Sombra color vino */
+}
+
+/* Ajuste para el icono */
+.btn-elegante span {
+    margin-right: 8px;
+    transition: transform 0.3s ease;
+}
+
+.btn-elegante:hover span {
+    display: inline-block;
+    transform: scale(1.2) rotate(10deg);
+}
