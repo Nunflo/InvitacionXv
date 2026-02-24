@@ -34,23 +34,22 @@
     <div id="error" style="display:none;">
         <h2>¡Ups!</h2>
         <p id="mensajeError">No pudimos conectar con la invitación.</p>
-        <small style="color: #ccc;">Verifica el ID o intenta de nuevo.</small>
+        <button onclick="location.reload()" style="background:none; border:1px solid #ccc; padding:5px 10px; cursor:pointer; border-radius:5px;">Reintentar</button>
     </div>
 </div>
 
 <script>
-    // 1. REEMPLAZA ESTE LINK CON TU NUEVA IMPLEMENTACIÓN
-    const scriptURL = "https://script.google.com/macros/s/AKfycbwRR5uFOXWAitxCOdEwYrUPB0ZHoDvk1HATS6OCW0pbhIIwXzYLH4VEhqUnQxcEj45V/exec";
+    // 1. PEGA AQUÍ TU ÚLTIMO LINK /EXEC DE GOOGLE
+    const scriptURL = "https://script.google.com/macros/s/AKfycbxFtBWYO5aFubhIWjgjA5aTYiEnqZQLIXVHiX60XPiHhVmduScVmKP0MRnpjkMbMf1t/exec";
     let datosGlobal = null;
 
-    // Esta función DEBE llamarse igual que el parámetro callback en la URL
+    // Función global para recibir la respuesta
     window.recibirDatos = function(data) {
-        console.log("Datos recibidos:", data);
+        console.log("Respuesta de Google:", data);
         if (data.error) {
-            showError("Invitación no encontrada.");
+            showError("Invitación no encontrada. Revisa el código.");
         } else if (data.estatus === "ok") {
             document.getElementById('enviando').style.display = 'none';
-            document.getElementById('btnEnviar').style.display = 'none';
             document.getElementById('success').style.display = 'block';
         } else {
             datosGlobal = data;
@@ -63,12 +62,15 @@
         const id = urlParams.get('id');
         if (!id) return showError("Falta el ID en la invitación.");
 
-        const script = document.createElement('script');
-        script.src = `${scriptURL}?id=${encodeURIComponent(id.toUpperCase())}&callback=recibirDatos`;
-        // Manejo de errores de carga del script
-        script.onerror = () => showError("Error de red al conectar con Google.");
-        document.body.appendChild(script);
+        llamarGoogle(`${scriptURL}?id=${encodeURIComponent(id.toUpperCase())}&callback=recibirDatos`);
     };
+
+    function llamarGoogle(url) {
+        const script = document.createElement('script');
+        script.src = url;
+        script.onerror = () => showError("Error de red. Por favor, refresca la página.");
+        document.body.appendChild(script);
+    }
 
     function showInvite(data) {
         document.getElementById('loader').style.display = 'none';
@@ -95,7 +97,7 @@
     }
 
     function enviarConfirmacion() {
-        document.getElementById('btnEnviar').disabled = true;
+        document.getElementById('btnEnviar').style.display = 'none';
         document.getElementById('enviando').style.display = 'block';
 
         let respuestas = [];
@@ -104,9 +106,7 @@
         });
 
         const id = new URLSearchParams(window.location.search).get('id');
-        const script = document.createElement('script');
-        script.src = `${scriptURL}?id=${encodeURIComponent(id.toUpperCase())}&confirmacion=${encodeURIComponent(respuestas.join(" | "))}&callback=recibirDatos`;
-        document.body.appendChild(script);
+        llamarGoogle(`${scriptURL}?id=${encodeURIComponent(id.toUpperCase())}&confirmacion=${encodeURIComponent(respuestas.join(" | "))}&callback=recibirDatos`);
     }
 </script>
 </body>
