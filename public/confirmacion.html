@@ -51,21 +51,20 @@
             return;
         }
 
-        fetch(scriptURL + "?id=" + id.toUpperCase())
-            .then(res => res.json())
-            .then(data => {
-                if (data.error) {
-                    showError("ID no encontrado en la lista.");
-                } else {
-                    datosGlobal = data;
-                    datosGlobal.id = id.toUpperCase(); // Guardamos el ID
-                    showInvite(data);
-                }
-            })
-            .catch(err => {
-                console.error(err);
-                showError("Error al conectar con el servidor.");
-            });
+        // Busca la línea que empieza con fetch y asegúrate que se vea así:
+fetch(scriptURL + "?id=" + id.toUpperCase(), {
+    method: 'GET',
+    redirect: 'follow' // Es vital que diga 'follow' para Google Scripts
+})
+.then(response => response.json())
+.then(data => {
+    // ... resto de tu código para mostrar los nombres
+})
+.catch(error => {
+    console.error('Error:', error);
+    document.getElementById('error').style.display = 'block';
+});
+            
     };
 
     function showInvite(data) {
