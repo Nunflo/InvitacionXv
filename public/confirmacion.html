@@ -51,7 +51,7 @@
             return;
         }
 
-        fetch(scriptURL + "?id=" + id.toUpperCase(), {
+        fetch(scriptURL + "?id=" + encodeURIComponent(id.toUpperCase()), {
             method: 'GET',
             redirect: 'follow'
         })
@@ -61,7 +61,7 @@
                 showError("No encontramos tu invitación.");
             } else {
                 datosGlobal = data;
-                datosGlobal.id = id; // Guardamos el ID para el envío
+                datosGlobal.id = id.toUpperCase();
                 showInvite(data);
             }
         })
@@ -107,22 +107,25 @@
 
         let respuestas = [];
         datosGlobal.integrantes.forEach((nom, i) => {
-            respuestas.push(`${nom.trim()}: ${document.getElementById('status-'+i).value}`);
+            const status = document.getElementById('status-'+i).value;
+            respuestas.push(`${nom.trim()}: ${status}`);
         });
 
+        // Usamos GET para el envío también, es más estable con Google Script
         const finalURL = `${scriptURL}?id=${encodeURIComponent(datosGlobal.id)}&confirmacion=${encodeURIComponent(respuestas.join(" | "))}`;
 
         fetch(finalURL, {
-            method: 'POST'
+            method: 'GET',
+            mode: 'no-cors' // Google Script no siempre devuelve cabeceras CORS en el guardado
         })
         .then(() => {
+            // Como usamos no-cors, asumimos éxito si la petición sale
             loaderEnvio.style.display = 'none';
             btn.style.display = 'none';
             document.getElementById('success').style.display = 'block';
         })
         .catch(err => {
-            // A veces Google da error de CORS aunque guarde los datos. 
-            // Si eso pasa, igual mostramos éxito.
+            console.error(err);
             loaderEnvio.style.display = 'none';
             btn.style.display = 'none';
             document.getElementById('success').style.display = 'block';
