@@ -33,13 +33,14 @@
 
     <div id="error" style="display:none;">
         <h2>¡Ups!</h2>
-        <p id="mensajeError">No encontramos tu invitación personalizada.</p>
-        <small style="color: #ccc;">Verifica que el ID sea correcto.</small>
+        <p id="mensajeError">Error al conectar con el servidor.</p>
+        <small style="color: #ccc;">Verifica tu conexión o el ID.</small>
     </div>
 </div>
 
 <script>
-    const scriptURL = "https://script.google.com/macros/s/AKfycbzuf8EGfe3aLwoRZ4BbNz_IUhsG2qJqe-XF0w5EQZNjLwBs6_UiiDoCsry_8Ikjg-UX/exec";
+    // PEGA AQUÍ TU NUEVO LINK DE GOOGLE
+    const scriptURL = "https://script.google.com/macros/s/AKfycbwj9ccNk_YsFDYb_TWBu5lNDfqoiNopRtW5xxIBz6umH3Sy6tbGl7V-KLuGKufop1jv/exec";
     let datosGlobal = null;
 
     window.onload = function() {
@@ -47,43 +48,35 @@
         const id = urlParams.get('id');
 
         if (!id) {
-            showError("No se proporcionó un ID válido en la URL.");
+            showError("No se proporcionó un ID.");
             return;
         }
 
-        // 1. Obtener datos de la familia
-        fetch(`${scriptURL}?id=${encodeURIComponent(id.toUpperCase())}`, {
-            method: 'GET',
-            redirect: 'follow'
-        })
-        .then(response => {
-            if (!response.ok) throw new Error('Error en la respuesta del servidor');
-            return response.json();
-        })
+        fetch(`${scriptURL}?id=${encodeURIComponent(id.toUpperCase())}`)
+        .then(res => res.json())
         .then(data => {
             if (data.error) {
-                showError("No encontramos tu invitación personalizada.");
+                showError("Invitación no encontrada.");
             } else {
                 datosGlobal = data;
                 datosGlobal.id = id.toUpperCase();
                 showInvite(data);
             }
         })
-        .catch(error => {
-            console.error('Error al cargar:', error);
-            showError("No se pudo conectar con la lista de invitados.");
+        .catch(err => {
+            console.error("Error CORS o Red:", err);
+            showError("Error de conexión. Prueba refrescando la página.");
         });
     };
 
     function showInvite(data) {
         document.getElementById('loader').style.display = 'none';
         document.getElementById('contenido').style.display = 'block';
-        document.getElementById('tituloFamilia').innerText = `¡Bienvenidos, ${data.familia}!`;
+        document.getElementById('tituloFamilia').innerText = "Bienvenidos, " + data.familia;
         
         let html = "";
         data.integrantes.forEach((nom, i) => {
-            html += `
-            <div class="familiar-row">
+            html += `<div class="familiar-row">
                 <span class="nombre">${nom.trim()}</span>
                 <select id="status-${i}">
                     <option value="Asistirá">Asistirá ✅</option>
@@ -101,38 +94,23 @@
     }
 
     function enviarConfirmacion() {
-        if(!datosGlobal) return;
-
         const btn = document.getElementById('btnEnviar');
         const loaderEnvio = document.getElementById('enviando');
-        
         btn.disabled = true;
         loaderEnvio.style.display = 'block';
 
         let respuestas = [];
         datosGlobal.integrantes.forEach((nom, i) => {
-            const status = document.getElementById('status-'+i).value;
-            respuestas.push(`${nom.trim()}: ${status}`);
+            respuestas.push(`${nom.trim()}: ${document.getElementById('status-'+i).value}`);
         });
 
         const finalURL = `${scriptURL}?id=${encodeURIComponent(datosGlobal.id)}&confirmacion=${encodeURIComponent(respuestas.join(" | "))}`;
 
-        // 2. Enviar confirmación
-        fetch(finalURL, {
-            method: 'GET',
-            mode: 'no-cors' 
-        })
+        fetch(finalURL, { method: 'GET', mode: 'no-cors' })
         .then(() => {
-            // Con no-cors asumimos éxito si la promesa se resuelve
             loaderEnvio.style.display = 'none';
             btn.style.display = 'none';
             document.getElementById('success').style.display = 'block';
-        })
-        .catch(err => {
-            console.error('Error al enviar:', err);
-            alert("Hubo un problema al guardar tu respuesta. Por favor intenta de nuevo.");
-            btn.disabled = false;
-            loaderEnvio.style.display = 'none';
         });
     }
 </script>
